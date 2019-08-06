@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BETMATCH</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <style>
+        @font-face {
+            font-family: "Futura";
+            src: url("./fonts/FuturaMediumC.eot") format("eot"),
+                url("./fonts/FuturaMediumC.woff") format("woff");
+        }
+
+        body {
+            background: #160C28;
+            overflow-x: hidden;
+            color: #fff;
+/*            padding: 20px 0;*/
+            font-family: Futura, serif;
+        }
+
+        .yellow {
+            color: #FFDC0B;
+        }
+
+        .fz-36 {
+            font-size: 36px;
+        }
+
+        .fz-46 {
+            font-size: 46px;
+        }
+
+        .fz-28 {
+            font-size: 28px;
+        }
+
+        .fz-22 {
+            font-size: 22px;
+        }
+
+        .fz-18 {
+            font-size: 18px;
+        }
+
+        .fz-16 {
+            font-size: 16px;
+        }
+
+        .mb-25 {
+            margin-bottom: 25px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-36 {
+            margin-bottom: 36px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+        .m-vert {
+            margin: auto 0;
+        }
+
+        .text-mid {
+            text-align: center;
+        }
+
+        .button {
+            background: rgba(255, 217, 4, 0.973);
+            box-shadow: 0px 0px 17px 0px rgba(255, 220, 11, 1);
+            border-radius: 3px;
+            display: inline-block;
+            transition: all .5s;
+        }
+
+        .button:hover {
+            background: yellow;
+            box-shadow: 0px 0px 50px 0px rgba(255, 220, 11, 1);
+            border-radius: 3px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .button__line {
+            color: #160C28;
+            padding-right: 10px;
+        }
+
+        .button--big {
+            padding: 20px 30px;
+        }
+
+        .button--sm {
+            padding: 10px 26px;
+        }
+
+        .top-map {
+            height: 80vh;
+        }
+
+        @media(max-width: 990px) {
+            body {
+                text-align: center;
+            }
+
+            .container * {
+                transform: translate(0, 0) !important;
+            }
+
+            .top-map {
+                display: none;
+            }
+        }
+
+        .top-map img {
+            height: 100%;
+        }
+
+        .top-left {
+            margin: auto 0;
+        }
+
+        .top {
+            padding-bottom: 100px;
+        }
+
+        .top .button {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .mid {
+            position: relative;
+            padding: 20px 0 100px 0;
+        }
+
+        li.mid-list {
+            margin-bottom: 20px;
+            text-align: left !important;
+        }
+
+        .mid-item {
+            padding: 10px;
+            transform: translate(0, 0);
+            transition: all .5s;
+            opacity: .8;
+        }
+
+        .mid-item:hover {
+            opacity: 1;
+            cursor: pointer;
+            transform: translate(0, -10px);
+        }
+
+        .mid-item--shift {
+            transform: translate(0, 50px);
+        }
+
+        .mid-item--shift:hover {
+            opacity: 1;
+            cursor: pointer;
+            transform: translate(0, 40px);
+        }
+
+        .mid-rect {
+            z-index: -1;
+            background: linear-gradient(180deg, #311C51 0%, #160C28 100%);
+            position: absolute;
+            top: 0;
+            right: 56%;
+            width: 100%;
+            height: 100%;
+            border-radius: 100px;
+            transform: rotate(175deg);
+        }
+
+        .bottom-item {
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        .bottom-item__title {
+            padding-top: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer {
+            position: relative;
+            padding: 200px 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .footer-text {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .footer .mid-rect {
+            background: linear-gradient(320deg, #311C51 0%, #160C28 100%);
+            top: 15%;
+            right: 5%;
+            transform: skewX(8deg) rotate(0);
+            z-index: -1;
+        }
+
+        /* Loader */
+
+        .transition-loader-inner {
+            background: #160C28;
+            z-index: 999;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .transition-loader-inner .inner {
+            animation: loader 3s infinite;
+        }
+
+        @keyframes loader {
+            0% {
+                opacity: 0;
+                transform: scale(.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transition-loader">
+        <div class="transition-loader-inner">
+            <div class="inner">
+                <img src="./images/logo.svg" style="width: 210px; height: 50px;" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- arm923i start -->
+    
+    <style>       
+        .main-banner{
+            background: #ffffff;
+            background-size: cover; 
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+            /*min-height: 100vh;*/
+            min-height: calc(var(--vh, 1vh) * 100);
+            position: relative;
+        }
+        .arm-wrap .row{
+            /*min-height: calc(100vh - 100px);*/
+            min-height: calc(var(--vh, 1vh) * 100 - 100px);
+            padding-top: 95px; 
+            padding-bottom: 95px;
+        }
+        .main-banner-logo{
+            margin-bottom: 20px;
+        }
+        .double-crypto-wrap{
+            background-color: #000000;
+            transform: skewX(50deg);
+                padding: 15px 60px; 
+        }
+        .double-crypto-text{
+            color: #ffdc0b;
+            font-size: 25px;
+            font-weight: 400;
+            letter-spacing: 1.13px;
+            text-transform: uppercase;
+            transform: skewX(-50deg);
+        }
+        .get-double{
+            color: #060505;;
+            font-size: 88px;
+            font-weight: 700;
+            letter-spacing: 3.51px;
+        }
+        .get-double-sub{
+            color: #021852;
+            font-size: 48px;
+            font-weight: 700;
+            max-width: 560px;
+            text-align: center;
+            letter-spacing: 1.71px;
+        }
+        a.main-banner-button{
+            padding: 30px 90px;
+            background-color: #e7c70a;            
+            box-shadow: 0 0 18px 9px rgba(152, 135, 32, 0.69), 0 0 58px 4px rgba(231, 199, 10, 0.39);
+            border-radius: 52px;
+            opacity: 0.99;
+            transition: all .5s; 
+            color: #060505;
+            font-size: 30px;
+            font-weight: 700;
+            text-transform: uppercase;  
+            display: inline-block;
+            letter-spacing: 1.71px;
+        }
+        a.main-banner-button:hover {
+            background: #1d003d;
+            box-shadow: 0px 0px 50px 0px rgba(255, 220, 11, 1);
+            color: yellow;
+            text-decoration: none;
+        }
+        .main-baner-right {
+			position: relative; 
+			height: 90vh;
+        }
+		.main-right-img img {
+		    position: absolute;
+		    height: 90vh;
+		    top: 0;
+		    right: 0;
+		}
+        .mid-item {
+            text-align: center;
+        }
+        .mid-item span{
+            font-size: 22px;
+            margin-top: -80px;
+            display: block;
+            margin-bottom: 15px;
+        }
+		.foobtn{
+			display: block; 
+			margin: auto; 
+			margin-top: 50px;
+			width: fit-content;
+		}
+		.main-banner-logo img{
+			width: 255px;
+		}
+
+		@media (max-width: 1400px){
+			.get-double-sub{
+				font-size: 40px;
+			}
+			.get-double{
+				font-size: 50px;
+			}
+            .get-double-sub{
+                font-size: 28px; 
+                margin: 0;
+            }
+			a.main-banner-button{
+				padding: 15px 60px;
+			}
+        }
+       @media(max-width: 1023px){
+       		.double-crypto-text{
+       			font-size: 16px;
+       		}
+       		.get-double{
+				font-size: 44px;
+			}
+	        a.main-banner-button {
+                padding: 10px 60px;
+                font-size: 24px;
+            }
+            .get-double-sub{
+                font-size: 24px; 
+                margin: 0;
+            }
+            .main-banner-logo img {
+                width: 150px;
+            }
+        }
+        @media(max-width: 767px){
+        	.main-overlay{
+        		position: absolute;
+			    width: 100%;
+			    background: rgba(0, 0, 0, 0.62);
+			    height: 100%;
+			    z-index: 10;
+                top: 0;
+                left: 0;
+        	}
+        	.main-baner-left{
+    		    z-index: 999;
+    		       /* padding-bottom: 5vh;*/
+        	}
+        	.main-banner{
+                background-image: url('./images/main_banner_mobile_background.png');
+        		background-position: top;
+        	}		
+            .double-crypto-wrap {
+                padding: 5px 40px;
+            }
+	        .get-double-sub{
+                font-size: 22px;
+                max-width: 330px;
+                 margin:0;
+	        }	
+	        .main-baner-right{
+	        	position: absolute;
+    			z-index: 0;
+    			top: 0; 
+    			left:0;
+	        }
+	        .bottom-item{
+                margin-top: 30px;
+              padding-bottom: 30px;
+                 border-bottom: 1px solid #ebebeb70;
+            }
+            .bottom-item:last-child{
+                border-bottom: none;
+            }
+        }
+        @media(max-width: 600px){
+            .get-double {
+                font-size: 44px;
+                margin:0;
+            }
+			a.main-banner-button {
+			    padding: 8px 45px;
+			    font-size: 20px;
+			}
+			.footer-text {
+			    width: 100%;
+			    font-size: 40px;
+			}
+        }  
+    </style>
+
+    <div class="main-banner"> 
+    	<div class="main-overlay"></div> 
+        <div class="arm-wrap container-fluid">
+            <div class="row">
+
+                <div class="col-12 col-md-6 main-baner-right text-center">
+                    <div class="main-right-img">
+                        <img src="./images/arm_banner_light_img.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 main-baner-left d-flex justify-content-center">
+                    <div class="main-left-wrap d-flex flex-column align-items-center justify-content-between">
+
+	                    <div class="main-banner-logo">
+	                        <img src="./images/logo_black.png"  alt="">
+	                    </div>
+                    	
+                    	<div class="double-crypto-wrap mb-3 md-md-0"> 
+	                        <div class="double-crypto-text">
+	                            <span>Удвой свою крипту</span>
+	                        </div>
+	                    </div>
+
+	                    <h1 class="get-double">ПОЛУЧИ Х2</h1>
+
+	                    <p class="get-double-sub">НА 3 ПЕРВЫХ ДЕПОЗИТА ПОСЛЕ РЕГИСТРАЦИИ</p>
+
+	                    <a class="main-banner-button" href="https://betmatch.io/register" target="_blank">Регистрация</a>
+	                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- arm923i end -->
+
+    <div class="container">
+
+        <section class="mid">
+            <div class="mid-rect"></div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="row mid-item-wrap">
+                        <div class="col-6 col-md-4 mid-item wow slideInUp">
+                            <img src="./images/mid1.png" style="width: 100%;" alt="">
+                            <span>Мобильний <br> беттинг</span>
+                        </div>
+                        <div class="col-6 col-md-4 mid-item mid-item--shift wow fadeIn">
+                            <img src="./images/mid2.png" style="width: 100%;" alt="">
+                            <span>Собственный <br> токен</span>
+                        </div>
+                        <div class="col-6 col-md-4 mid-item wow slideInUp">
+                            <img src="./images/mid3.png" style="width: 100%;" alt="">
+                            <span>Высокие <br> лимиты</span>
+                        </div>
+                        <div class="col-6 col-md-4 mid-item wow slideInUp">
+                            <img src="./images/mid4.png" style="width: 100%;" alt="">
+                            <span>Быстрые <br> выводы</span>
+                        </div>
+                        <div class="col-6 col-md-4 mid-item mid-item--shift wow fadeIn">
+                            <img src="./images/mid5.png" style="width: 100%;" alt="">
+                            <span>Ставки <br> на блокчейне</span>
+                        </div>
+                        <div class="col-6 col-md-4 mid-item wow slideInUp">
+                            <img src="./images/mid6.png" style="width: 100%;" alt="">
+                            <span>Минимальные <br> комиссии</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 m-vert">
+                    <div class="mid-title ">
+                        <span class="yellow fz-36">Наши преимущества</span>
+                    </div>
+                    <ul class="fz-22">
+                        <li class="mid-list wow slideInRight">
+                            Быстрые выводы и начисления выигранных денег с помощью smart-контрактов ассчитанные на
+                            блокчейне
+
+                        </li>
+                        <li class="mid-list wow slideInRight">
+                            Высокие лимиты
+                        </li>
+                        <li class="mid-list wow slideInRight">
+                            Минимальные комиссии
+                        </li>
+                        <li class="mid-list wow slideInRight">
+                            Современный интерфейс и мобильный беттинг
+                        </li>
+                        <li class="mid-list wow slideInRight">
+                            Собственный токен, который позволяет делать ставки без комиссии
+                        </li>
+                        <li class="mid-list wow slideInRight">
+                            Лайв-ставки, рассчитанные на блокчейне
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="bottom">
+            <div class="bottom-title text-mid yellow fz-18 wow fadeIn">
+                КАК ЭТО РАБОТАЕТ?
+            </div>
+            <div class="bottom-subtitle text-mid fz-36 mb-36">
+                <span class="yellow">Блокчейн-решение</span> для букмекеров
+            </div>
+            <div class="row">
+                <div class="bottom-item col-lg-4 col-md-6">
+                    <div class="bottom-item__image wow slideInUp">
+                        <img src="./images/bottom1.svg" style="width: 90px; height: 90px;" alt="">
+                    </div>
+                    <div class="bottom-item__title fz-28">
+                        Сделай депозит
+                        в <span class="yellow">криптовалюте</span>
+                        в один клик
+                    </div>
+                    <div class="bottom-item__text fz-22">
+                        После отправки ETH непосредственно на адрес контракта Ethereum пользователь увидит баланс своей
+                        криптовалюты в верхней части своего кошелька и на своей панели в системе ставок.
+                    </div>
+                </div>
+                <hr>
+                <div class="bottom-item col-lg-4 col-md-6">
+                    <div class="bottom-item__image wow slideInUp">
+                        <img src="./images/bottom2.svg" style="width: 90px; height: 90px;" alt="">
+                    </div>
+                    <div class="bottom-item__title fz-28">
+                        Сделай <span class="yellow">ставку</span>
+                        на желаемое
+                        событие
+
+                    </div>
+                    <div class="bottom-item__text fz-22">
+                        Мы располагаем широким диапазоном коэффициентов.
+                        Все, что вам нужно, это сделать ставку на желаемое событие и скрестить пальцы за любимого
+                        игрока или команду.
+                    </div>
+                </div>
+                <hr>
+                <div class="bottom-item col-lg-4 col-md-6">
+                    <div class="bottom-item__image wow slideInUp">
+                        <img src="./images/bottom3.svg" style="width: 90px; height: 90px;" alt="">
+                    </div>
+                    <div class="bottom-item__title fz-28">
+                        Получите <span class="yellow">надежную</span>
+                        и быструю выплату
+                        в случае выигрыша
+                    </div>
+                    <div class="bottom-item__text fz-22">
+                        Когда событие завершилось и результаты игры подведены, наш смарт-контракт автоматически
+                        выполнит ставку. В результате победитель получит мгновенную выплату
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="footer">
+        <div class="mid-rect"></div>
+        <div class="container">
+            <div class="footer-logo mb-30">
+                <img src="./images/logo.svg" alt="">
+            </div>
+            <div class="footer-text mb-30 fz-46">
+                <span class="yellow">Прозрачные</span> ставки
+                на блокчейне
+            </div>
+            <a class="main-banner-button foobtn" href="https://betmatch.io/register" target="_blank" style="">Регистрация</a>
+        </div>
+    </footer>
+</body>
+
+<script src="http://wordsmall.ru/demo/revealator/js/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+<script>
+    window.onload = function () {
+        new WOW().init();
+        var loader = document.querySelector('.transition-loader-inner');
+        loader.style.transform = 'translate(-100vw, 0)';
+    }
+</script>
+<script>
+	window.addEventListener('resize', () => {
+	  let vh = window.innerHeight * 0.01;
+	  document.documentElement.style.setProperty('--vh', `${vh}px`);
+	});
+
+</script>
+</html>
