@@ -324,11 +324,12 @@
             text-transform: uppercase;  
             display: inline-block;
             letter-spacing: 1.71px;
+            margin-bottom: 20px;
         }
         a.main-banner-button:hover {
             background: #1d003d;
             box-shadow: 0px 0px 50px 0px rgba(255, 220, 11, 1);
-            color: yellow;
+            color: #060505;
             text-decoration: none;
         }
         .main-baner-right {
@@ -361,6 +362,9 @@
 		}
 
 		@media (max-width: 1400px){
+			.get-double-sub{
+				font-size: 40px;
+			}
 			.arm-wrap .row{
 	            padding-top: 65px; 
 	            padding-bottom: 65px;
@@ -375,11 +379,12 @@
             	font-size: 17px;
             }
 			.get-double{
-				font-size: 62px;
+				font-size: 50px;
 			}
             .get-double-sub{
         	    max-width: 440px;
-                font-size: 36px; 
+                font-size: 28px; 
+                margin: 0; 
             }
 			a.main-banner-button{
 				font-size: 20px;
@@ -418,9 +423,9 @@
         	.main-baner-left{
     		    z-index: 999;
         	}
-        	.main-banner{
-                
-        	}	
+        	.main-banner-logo img {
+                width: 165px;
+            }	
         	.arm-wrap .row{
 	            padding-top: 30px; 
 	            padding-bottom: 30px;
@@ -431,10 +436,19 @@
             .double-crypto-wrap {
                 padding: 5px 40px;
             }
+            .double-crypto-text{
+       			font-size: 16px;
+       		}
+       		.get-double{
+				color: #fffcfc;
+				font-weight: 400;
+			}
 	        .get-double-sub{
+	        	color: #f3f5f9;
                 font-size: 22px;
                 max-width: 330px;
-                 margin:0;
+                line-height: 30px;
+   				 font-weight: 400;
 	        }	
 	        .main-baner-right{
 	        	position: absolute;
@@ -453,8 +467,8 @@
 			}
 	        .bottom-item{
                 margin-top: 30px;
-              padding-bottom: 30px;
-                 border-bottom: 1px solid #ebebeb70;
+              	padding-bottom: 30px;
+                border-bottom: 1px solid #ebebeb70;
             }
             .bottom-item:last-child{
                 border-bottom: none;
